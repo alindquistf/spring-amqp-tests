@@ -1,0 +1,13 @@
+spring:
+  rabbitmq:
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    template:
+      mandatory: true
+    adresses: localhost
+    username: admin
+    password: admin
+#    addresses: node1.rabbitmq.dev.intranet.pags,node2.rabbitmq.dev.intranet.pags,node3.rabbitmq.dev.intranet.pags
+#    username: card_account_api
+#    virtual-host: /card_account
+#    password: "{!oc1h%c&z7cu!t"

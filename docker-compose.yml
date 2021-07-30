@@ -1,0 +1,90 @@
+version: '3.4'
+services:
+  rabbit1:
+    image: bitnami/rabbitmq:3.8.19
+    hostname: rabbit1
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_NODE_TYPE=stats
+      - RABBITMQ_NODE_NAME=rabbit@rabbit1
+      - RABBITMQ_ERL_COOKIE=s3cr3tc00ki3
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME:-admin}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD:-admin}
+    volumes:
+      - 'rabbitmqrabbit1_data:/bitnami'
+
+  rabbit2:
+    image: bitnami/rabbitmq:3.8.19
+    hostname: rabbit2
+    links:
+      - rabbit1
+    environment:
+      - RABBITMQ_NODE_TYPE=queue-ram
+      - RABBITMQ_NODE_NAME=rabbit@rabbit2
+      - RABBITMQ_CLUSTER_NODE_NAME=rabbit@rabbit1
+      - RABBITMQ_ERL_COOKIE=s3cr3tc00ki3
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    volumes:
+      - 'rabbitmqrabbit2_data:/bitnami'
+
+  rabbit3:
+    image: bitnami/rabbitmq:3.8.19
+    hostname: rabbit3
+    links:
+      - rabbit1
+      - rabbit2
+    environment:
+      - RABBITMQ_NODE_TYPE=queue-ram
+      - RABBITMQ_NODE_NAME=rabbit@rabbit3
+      - RABBITMQ_CLUSTER_NODE_NAME=rabbit@rabbit1
+      - RABBITMQ_ERL_COOKIE=s3cr3tc00ki3
+    ports:
+      - "5674:5672"
+      - "15674:15672"
+    volumes:
+      - 'rabbitmqrabbit3_data:/bitnami'
+
+  rabbit4:
+    image: bitnami/rabbitmq:3.8.19
+    hostname: rabbit4
+    links:
+      - rabbit1
+      - rabbit2
+    environment:
+      - RABBITMQ_NODE_TYPE=queue-ram
+      - RABBITMQ_NODE_NAME=rabbit@rabbit4
+      - RABBITMQ_CLUSTER_NODE_NAME=rabbit@rabbit1
+      - RABBITMQ_ERL_COOKIE=s3cr3tc00ki3
+    ports:
+      - "5675:5672"
+      - "15675:15672"
+    volumes:
+      - 'rabbitmqrabbit4_data:/bitnami'
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - 'mongodata_data:/data/db'
+
+volumes:
+  rabbitmqrabbit1_data:
+    driver: local
+  rabbitmqrabbit2_data:
+    driver: local
+  rabbitmqrabbit3_data:
+    driver: local
+  rabbitmqrabbit4_data:
+    driver: local
+  mongodata_data:
+    driver: local

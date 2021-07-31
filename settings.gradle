@@ -2,5 +2,5 @@ rootProject.name = 'spring-amqp-tests'
 include 'springamqpbasictest'
 include 'springamqp-producer-api'
 include 'springamqp-consumer-worker'
-include 'springcloudstreamtest'
+include 'rabbit-amqp-tutorials'
 

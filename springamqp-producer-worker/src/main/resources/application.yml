@@ -1,0 +1,12 @@
+spring:
+  rabbitmq:
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    template:
+      mandatory: true
+    adresses: localhost
+    username: admin
+    password: admin
+  data:
+    mongodb:
+      url: mongodb://localhost:27017

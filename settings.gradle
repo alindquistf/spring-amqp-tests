@@ -3,4 +3,5 @@ include 'springamqpbasictest'
 include 'springamqp-producer-api'
 include 'springamqp-consumer-worker'
 include 'rabbit-amqp-tutorials'
+include 'springamqp-producer-worker'
 

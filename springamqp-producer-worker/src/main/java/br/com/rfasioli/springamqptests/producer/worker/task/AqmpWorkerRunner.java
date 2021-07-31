@@ -1,11 +1,10 @@
-package br.com.rfasioli.springamqptests.api.task;
+package br.com.rfasioli.springamqptests.producer.worker.task;
 
+import br.com.rfasioli.springamqptests.producer.worker.producer.confirmreturns.ConfirmReturnsPublisher;
+import br.com.rfasioli.springamqptests.producer.worker.producer.quorum.quorum.QuorumPublisher;
+import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import br.com.rfasioli.springamqptests.api.producer.confirmreturns.ConfirmReturnsPublisher;
-import br.com.rfasioli.springamqptests.api.producer.quorum.quorum.QuorumPublisher;
-import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor

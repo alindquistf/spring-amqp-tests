@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.rfasioli.springamqptests.api.producer.confirmreturns.ConfirmReturnsPublisher;
 import br.com.rfasioli.springamqptests.api.producer.quorum.quorum.QuorumPublisher;
+import br.com.rfasioli.springamqptests.api.producer.quorum.quorum.QuorumWithConfirmReturnPublisher;
 import lombok.RequiredArgsConstructor;
 
 import static java.util.Objects.nonNull;
@@ -17,6 +18,7 @@ import static java.util.Objects.nonNull;
 public class ApiController {
     private final ConfirmReturnsPublisher confirmReturnsPublisher;
     private final QuorumPublisher quorumPublisher;
+    private final QuorumWithConfirmReturnPublisher quorumWithConfirmReturnPublisher;
 
     @PostMapping("/confirm")
     public void sendConfirmReturns(@RequestBody Integer qty) {
@@ -39,6 +41,18 @@ public class ApiController {
         }
         else {
             quorumPublisher.send();
+        }
+    }
+
+    @PostMapping("/quorum-confirm")
+    public void sendQuorumWithConfirm(@RequestBody Integer qty) {
+        if (nonNull(qty)) {
+            for (int i = 0; i < qty; i++) {
+                quorumWithConfirmReturnPublisher.send();
+            }
+        }
+        else {
+            quorumWithConfirmReturnPublisher.send();
         }
     }
 

@@ -2,7 +2,6 @@ package br.com.rfasioli.springamqptests.worker;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -46,8 +45,8 @@ public class AmqpConfiguration {
     }
 
     @Bean("quorumConfirmsExchange")
-    public DirectExchange quorumConfirmsExchange() {
-        final var exchange = new DirectExchange(QUORUM_CONFIRMS_EXCHANGE);
+    public FanoutExchange quorumConfirmsExchange() {
+        final var exchange = new FanoutExchange(QUORUM_CONFIRMS_EXCHANGE);
         exchange.setDelayed(false);
         return exchange;
     }

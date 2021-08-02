@@ -10,8 +10,8 @@ services:
       - RABBITMQ_NODE_TYPE=stats
       - RABBITMQ_NODE_NAME=rabbit@rabbit1
       - RABBITMQ_ERL_COOKIE=s3cr3tc00ki3
-      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME:-admin}
-      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD:-admin}
+      - RABBITMQ_USERNAME=admin
+      - RABBITMQ_PASSWORD=admin
     volumes:
       - 'rabbitmqrabbit1_data:/bitnami'
 
@@ -27,7 +27,6 @@ services:
       - RABBITMQ_ERL_COOKIE=s3cr3tc00ki3
     ports:
       - "5673:5672"
-      - "15673:15672"
     volumes:
       - 'rabbitmqrabbit2_data:/bitnami'
 
@@ -44,7 +43,6 @@ services:
       - RABBITMQ_ERL_COOKIE=s3cr3tc00ki3
     ports:
       - "5674:5672"
-      - "15674:15672"
     volumes:
       - 'rabbitmqrabbit3_data:/bitnami'
 
@@ -61,7 +59,6 @@ services:
       - RABBITMQ_ERL_COOKIE=s3cr3tc00ki3
     ports:
       - "5675:5672"
-      - "15675:15672"
     volumes:
       - 'rabbitmqrabbit4_data:/bitnami'
 

@@ -44,6 +44,7 @@ public class Outbox {
     public enum TYPE {
         CLASSIC,
         CONFIRM_RETURNS,
-        QUORUM
+        QUORUM,
+        QUORUM_CONFIRM_RETURNS
     }
 }

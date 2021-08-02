@@ -1,4 +1,4 @@
-package br.com.rfasioli.springamqptests.api.producer.quorum.quorum;
+package br.com.rfasioli.springamqptests.api.producer.quorum;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

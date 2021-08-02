@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.rfasioli.springamqptests.api.producer.confirmreturns.ConfirmReturnsPublisher;
-import br.com.rfasioli.springamqptests.api.producer.quorum.quorum.QuorumPublisher;
-import br.com.rfasioli.springamqptests.api.producer.quorum.quorum.QuorumWithConfirmReturnPublisher;
+import br.com.rfasioli.springamqptests.api.producer.quorum.QuorumPublisher;
+import br.com.rfasioli.springamqptests.api.producer.quorum.QuorumWithConfirmReturnPublisher;
 import lombok.RequiredArgsConstructor;
 
 import static java.util.Objects.nonNull;

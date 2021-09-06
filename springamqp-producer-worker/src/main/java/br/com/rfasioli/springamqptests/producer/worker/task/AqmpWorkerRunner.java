@@ -15,17 +15,17 @@ public class AqmpWorkerRunner {
     private final QuorumPublisher quorumPublisher;
     private final QuorumWithConfirmReturnPublisher quorumWithConfirmReturnPublisher;
 
-    @Scheduled(fixedDelay = 1)
-    public void publishConfirm() {
-        confirmReturnsPublisher.send();
-    }
+//    @Scheduled(fixedDelay = 1)
+//    public void publishConfirm() {
+//        confirmReturnsPublisher.send();
+//    }
+//
+//    @Scheduled(fixedDelay = 1)
+//    public void publishQuorum() {
+//        quorumPublisher.send();
+//    }
 
-    @Scheduled(fixedDelay = 1)
-    public void publishQuorum() {
-        quorumPublisher.send();
-    }
-
-    @Scheduled(fixedDelay = 1)
+    @Scheduled(fixedDelay = 100)
     public void publishQuorumWithConfirms() {
         quorumWithConfirmReturnPublisher.send();
     }

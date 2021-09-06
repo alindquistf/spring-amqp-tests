@@ -2,8 +2,6 @@ spring:
   rabbitmq:
     publisher-confirm-type: correlated
     publisher-returns: true
-    template:
-      mandatory: true
     adresses: localhost
     username: admin
     password: admin
@@ -19,15 +17,10 @@ spring:
           contentType: application/json
           producer:
             requiredGroups: ha_ac_cloud_stream_queue_notify_create_transaction_tecban
-      default:
-        producer:
-          errorChannelEnabled: true
       rabbit:
         default:
           producer:
             exchangeType: fanout
             useConfirmHeader: true
-            queueNameGroupOnly: true
             quorum:
               enabled: true
-              initialQuorumSize: 3

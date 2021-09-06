@@ -16,8 +16,11 @@ spring:
       bindings:
         rabbitData-in-0:
           destination: ha_ac_cloud_stream_exchange_notify_create_transaction_tecban
+          group: ha_ac_cloud_stream_queue_notify_create_transaction_tecban
           contentType: application/x-java-object;type=br.com.rfasioli.stream.consumer.dto.DataDTO
       rabbit:
         default:
           consumer:
             exchangeType: fanout
+            quorum:
+              enabled: true

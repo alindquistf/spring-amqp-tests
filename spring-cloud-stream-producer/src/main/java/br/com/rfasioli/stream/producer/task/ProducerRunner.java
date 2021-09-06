@@ -12,7 +12,7 @@ public class ProducerRunner {
 
     private final RabbitDataProducer producer;
 
-    @Scheduled(fixedDelay = 1)
+    @Scheduled(fixedDelay = 5)
     public void publish() {
         producer.produce();
     }

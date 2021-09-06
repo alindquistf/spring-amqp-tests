@@ -32,7 +32,6 @@ public class RabbitDataProducer implements Supplier<Flux<Message<DataDTO>>> {
 
     private final OutboxDataService outboxDataService;
 
-    @SneakyThrows
     public void produce() {
         final var correlationData = new CorrelationData(UUID.randomUUID().toString());
         final var payload = DataDTO.of(correlationData.getId(), counter.addAndGet(1));
@@ -80,18 +79,6 @@ public class RabbitDataProducer implements Supplier<Flux<Message<DataDTO>>> {
     @Override
     public Flux<Message<DataDTO>> get() {
         return sink.asFlux();
-    }
-
-    @Component
-    private static class SetupCallbacks {
-        public SetupCallbacks(final RabbitTemplate rabbitTemplate) {
-            rabbitTemplate.setConfirmCallback((correlation, ack, reason) -> {
-                if (correlation != null) {
-                    log.info("Received {} for correlation: {}, reason: {}",
-                            (ack ? " ack " : " nack "), correlation, reason);
-                }
-            });
-        }
     }
 
 }

@@ -22,7 +22,7 @@ clusterizadas do RabbitMQ e uma instância do MongoDB, para registro dos dados.
 - Docker
 - Docker Compose
 
-## Executação
+## Execução
 ### Containeres
 ``` bash
 # subir instâncias
@@ -84,3 +84,41 @@ db.outbox.find({
 ### Recomendação:
 Para cenários onde a garantia de entrega da mensagem é prioritária e as Quorum queues não gerem 
 restrições, a recomendação é o uso destas associada ao confirm returns.
+
+# Spring Cloud Stream Rabbit Tests
+Variante da aplicação para o AMQP, mas utilizando o suporte ao RabbitMQ do Spring Cloud Stream. 
+Baseando-se nos resultados obtidos com os testes de AMQP, apenas a implementação utilizando _Quorum 
+Queues_ com _Publish Confirms_ foi realizada.
+
+Vale observar que no Spring Cloud Stream as _destinations_ são mapeadas para as _exchanges_ do 
+Rabbit, enquanto os _groups_ são mapeados para _queues_. Outro detalhe é que para configurar uma 
+queue _durable_ e do tipo _quorum_, é necessário defini-la via o parâmetro `requiredGroups`.
+
+## Executando
+A execução é igual ao da aplicação usando AMQP, ver seção _[Execução](#execução)_, exceto pelo nome
+dos serviços.
+
+### Producer
+O **spring-cloud-stream-producer** produz mensagens para o `destination` e `requiredGroups`
+configurados no _application.yml_, numa frequência fixa de 10 milissegundos. Para executá-lo, basta
+rodar:
+```bash
+./gradlew spring-cloud-stream-producer:bootRun
+```
+### Consumer
+O **spring-cloud-stream-consumer** recebe mensagens do `destination` e `group` configurados e sua
+execução é similar:
+```bash
+./gradlew spring-cloud-stream-consumer:bootRun
+```
+
+## Resultados
+Os resultados obtidos são similares aos obtidos com o Spring AMQP com Quorum Queues e Publish
+Confirms, com algumas diferenças relevantes encontradas:
+- Um intervalo abaixo de 10ms parece saturar mais facilmente o RabbitMQ, que demora mais que o
+tempo para enviar duas mensagens para responder com o _confirm_.
+- Com apenas a instância líder do RabbitMQ ativa (equivalente ao cenário #3 com AMQP), o _producer_ 
+consegue enviar mensagens até um limite `channelMax`, que quando é atingido lança a exceção 
+`AmqpResourceNotAvailableException`; É possível contornar essa limitação com [algumas configurações
+adicionais](https://stackoverflow.com/a/67791952). No entanto, o cenário só ocorre em situações de
+alto volume como é o caso deste exemplo.
